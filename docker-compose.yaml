@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  mysql_db_saga:
+    container_name: mysql_db_saga
+    image: mysql:8.0.32
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: db_saga
+    ports:
+      - "3306:3306"
+    volumes:
+      - volume_mysql_db_saga:/var/lib/mysql
+      #carga al iniciar
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  volume_mysql_db_saga:
+    external: false
